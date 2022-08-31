@@ -1,0 +1,8 @@
+<div class="currency-container">
+    <div *ngFor="let currency of currencies">
+        <span *ngIf="currencyRates">
+            {{ currency }}/UAH: {{ currencyRates[currency] }}
+        </span>
+    </div>
+    <div>Exchange Date: {{ exchangeDate }}</div>
+</div>

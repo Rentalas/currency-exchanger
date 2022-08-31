@@ -1,0 +1,12 @@
+<select class="currency" #currency (change)="onCurrencyChange(currency.value)">
+    <option value="null" [disabled]="true" hidden>Choice currency</option>
+    <option [value]="Currency.Usd">{{ Currency.Usd }}</option>
+    <option [value]="Currency.Uah">{{ Currency.Uah }}</option>
+    <option [value]="Currency.Eur">{{ Currency.Eur }}</option>
+</select>
+<input #amount
+    class="amount" 
+    type="number" 
+    placeholder="Amount" 
+    (input)="onAmountChange(amount.value)"
+>
