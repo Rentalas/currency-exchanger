@@ -45,7 +45,6 @@ export class CurrencyConvertatorComponent implements OnInit{
         };
     }
 
-
     private updateMasterData(): void {
         const shouldConvert = this.shouldConvert(this.masterData?.currency, this.detailData);
 
@@ -60,16 +59,6 @@ export class CurrencyConvertatorComponent implements OnInit{
         if (shouldConvert) {
             this.detailData = this.convertatorService.convertCurrency(this.detailData?.currency, this.masterData);
         }
-    }
-
-      private shouldUpdateMasterData(): boolean {
-        if (this.masterData?.amount == undefined) {
-            return this.masterData?.currency
-                && this.detailData?.currency
-                && this.detailData?.amount != undefined;
-        }
-
-        return false;
     }
 
     private shouldConvert(currencyTo: Currency, data: CurrencyModel): boolean {

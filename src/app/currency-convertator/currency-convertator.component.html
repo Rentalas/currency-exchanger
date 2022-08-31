@@ -1,13 +1,13 @@
 <div class="container">
     <div class="master-view">
-        <app-converter-input 
+        <app-converter-input
             [currencyData]="masterData" 
             (currencyChange)="onMasterCurrencyChange($event)"
             (amountChange)="onMasterAmountChange($event)"
         ></app-converter-input>
     </div>
     <div class="detail-view">
-        <app-converter-input 
+        <app-converter-input
             [currencyData]="detailData" 
             (currencyChange)="onDetailCurrencyChange($event)"
             (amountChange)="onDetailAmountChange($event)"
