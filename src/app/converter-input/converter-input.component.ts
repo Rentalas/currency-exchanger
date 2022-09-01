@@ -2,48 +2,29 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, 
 import { Currency, CurrencyModel } from '../model';
 
 @Component({
-  selector: 'app-converter-input',
-  templateUrl: './converter-input.component.html',
-  styleUrls: ['./converter-input.component.scss']
+    selector: 'app-converter-input',
+    templateUrl: './converter-input.component.html',
+    styleUrls: ['./converter-input.component.scss']
 })
 export class ConverterInputComponent implements OnChanges {
-  @Input() currencyData!: CurrencyModel;
-  @Output() currencyChange: EventEmitter<Currency> = new EventEmitter();
-  @Output() amountChange: EventEmitter<number> = new EventEmitter();
-  @ViewChild('currency', { static: true }) currencyInput: ElementRef<HTMLSelectElement>;
-  @ViewChild('amount', { static: true }) amountInput: ElementRef<HTMLInputElement>;
+    @Input() currencyData!: CurrencyModel;
+    @Output() currencyChange: EventEmitter<Currency> = new EventEmitter();
+    @Output() amountChange: EventEmitter<number> = new EventEmitter();
+    @ViewChild('currency', { static: true }) currencyInput: ElementRef<HTMLSelectElement>;
+    @ViewChild('amount', { static: true }) amountInput: ElementRef<HTMLInputElement>;
 
-  Currency = Currency;
-  private currency!: Currency;
-  private amount!: number;
+    Currency = Currency;
 
-  ngOnChanges() {
-      const { currency, amount } = this.currencyData ?? {};
-      const shouldUpdate = this.currency !== currency || this.amount !== amount;
+    ngOnChanges() {
+        this.currencyInput.nativeElement.value = this.currencyData.currency;
+        this.amountInput.nativeElement.value = String(this.currencyData.amount);
+    }
 
-      if (shouldUpdate) {
-          this.setAmount(amount);
-          this.setCurrency(currency);
-      }
-  }
+    onAmountChange(amount: string): void {
+        this.amountChange.emit(+amount);
+    }
 
-  onAmountChange(amount: string) {
-      this.amount = Number(amount);
-      this.amountChange.emit(this.amount);
-  }
-
-  onCurrencyChange(currency: string) {
-      this.currency = currency as Currency;
-      this.currencyChange.emit(this.currency);
-  }
-
-  private setCurrency(currency: Currency) {
-      this.currency = currency;
-      this.currencyInput.nativeElement.value = currency;
-  }
-
-  private setAmount(amount: number) {
-      this.amount = amount;
-      this.amountInput.nativeElement.value = String(amount);
-  }
+    onCurrencyChange(currency: string): void {
+        this.currencyChange.emit(currency as Currency);
+    }
 }

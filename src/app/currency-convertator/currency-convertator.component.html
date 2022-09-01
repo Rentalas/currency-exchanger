@@ -2,15 +2,15 @@
     <div class="master-view">
         <app-converter-input
             [currencyData]="masterData" 
-            (currencyChange)="onMasterCurrencyChange($event)"
-            (amountChange)="onMasterAmountChange($event)"
-        ></app-converter-input>
+            (currencyChange)="onCurrencyDataChange('master', $event)"
+            (amountChange)="onAmountDataChange('master', $event)"
+            ></app-converter-input>
     </div>
     <div class="detail-view">
         <app-converter-input
             [currencyData]="detailData" 
-            (currencyChange)="onDetailCurrencyChange($event)"
-            (amountChange)="onDetailAmountChange($event)"
-        ></app-converter-input>
+            (currencyChange)="onCurrencyDataChange('detail', $event)"
+            (amountChange)="onAmountDataChange('detail', $event)"
+            ></app-converter-input>
     </div>
 </div>

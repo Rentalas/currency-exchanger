@@ -9,20 +9,20 @@ export class ConvertatorService {
 
   constructor(private currencyCourseService: CurrencyCourseService) { }
 
-    convertCurrency(convertToCurrency: Currency, data: CurrencyModel): CurrencyModel {
-        const { currency, amount } = data;
-        const rate = this.currencyCourseService.getRate(convertToCurrency, currency);
-        const convertedAmount = amount * rate;
-        const truncatedAmount = this.truncateCurrencyAmount(convertedAmount);
+  convertCurrency(convertToCurrency: Currency, data: CurrencyModel): CurrencyModel {
+    const { currency, amount } = data;
+    const rate = this.currencyCourseService.getRate(convertToCurrency, currency);
+    const convertedAmount = amount * rate;
+    const truncatedAmount = this.truncateCurrencyAmount(convertedAmount);
 
-        return {
-            currency: convertToCurrency,
-            amount: truncatedAmount,
-        };
-    }
-    
-    private truncateCurrencyAmount(value: number, digitsAfterDecimal: number = 2): number {
-        const coefficient = 10 ** digitsAfterDecimal;
-        return Math.trunc(value * coefficient) / coefficient;
-    }
+    return {
+      currency: convertToCurrency,
+      amount: truncatedAmount,
+    };
+  }
+
+  private truncateCurrencyAmount(value: number, digitsAfterDecimal: number = 2): number {
+    const coefficient = 10 ** digitsAfterDecimal;
+    return Math.trunc(value * coefficient) / coefficient;
+  }
 }

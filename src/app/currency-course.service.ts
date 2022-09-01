@@ -4,11 +4,10 @@ import { CurrencyApiService } from './currency-api.service';
 import { Currency, CurrencyRates, CurrencyResponse } from './model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CurrencyCourseService {
-
-  currencyRates: CurrencyRates = {} as CurrencyRates;
+    currencyRates: CurrencyRates = {} as CurrencyRates;
     exchangeDate$: Subject<string> = new Subject();
     currencyRates$: Subject<CurrencyRates> = new Subject();
 
@@ -17,20 +16,20 @@ export class CurrencyCourseService {
     }
 
     getRate(currencyTo: Currency, currencyFrom: Currency): number {
-        if(currencyFrom === currencyTo) {
+        if (currencyFrom === currencyTo) {
             return 1;
         }
 
-        if(currencyTo !== Currency.Uah && currencyFrom !== Currency.Uah) {
-            return this.crossCourseRate(currencyTo, currencyFrom)
+        if (currencyTo !== Currency.Uah && currencyFrom !== Currency.Uah) {
+            return this.crossCourseRate(currencyTo, currencyFrom);
         }
 
         const courseCurrency = currencyFrom === Currency.Uah ? currencyTo : currencyFrom;
-        const ratioToHrn = this.currencyRates[courseCurrency];
-        
+        const rateToUah = this.currencyRates[courseCurrency];
+
         return currencyTo === Currency.Uah
-            ? ratioToHrn
-            : 1 / ratioToHrn;
+            ? rateToUah
+            : 1 / rateToUah;
     }
 
     getRates(): void {

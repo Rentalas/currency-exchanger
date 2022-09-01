@@ -3,39 +3,33 @@ import { ConvertatorService } from '../convertator.service';
 import { Currency, CurrencyModel } from '../model';
 
 @Component({
-  selector: 'app-currency-convertator',
-  templateUrl: './currency-convertator.component.html',
-  styleUrls: ['./currency-convertator.component.scss']
+    selector: 'app-currency-convertator',
+    templateUrl: './currency-convertator.component.html',
+    styleUrls: ['./currency-convertator.component.scss']
 })
-export class CurrencyConvertatorComponent implements OnInit{
-  detailData!: CurrencyModel;
+export class CurrencyConvertatorComponent implements OnInit {
+    detailData!: CurrencyModel;
     masterData!: CurrencyModel;
 
     constructor(private convertatorService: ConvertatorService) { }
 
     ngOnInit() {
-      this.detailData = this.setInitialData();
-      this.masterData = this.setInitialData();
+        this.detailData = this.setInitialData();
+        this.masterData = this.setInitialData();
     }
 
-    onMasterCurrencyChange(currency: Currency): void {
-      this.masterData.currency = currency;
-      this.updateDetailData();
-    }
-
-    onDetailCurrencyChange(currency: Currency): void {
-        this.detailData.currency = currency;
+    onCurrencyDataChange(sourceInput: string, currency: Currency): void {
+        const dataProp = sourceInput === 'master' ? this.masterData : this.detailData;
+        dataProp.currency = currency;
         this.updateDetailData();
     }
 
-    onMasterAmountChange(amount: number): void {
-        this.masterData.amount = amount;
-        this.updateDetailData();
-    }
+    onAmountDataChange(sourceInput: string, amount: number): void {
+        const dataProp = sourceInput === 'master' ? this.masterData : this.detailData;
+        const updateDataMethod = sourceInput === 'master' ? this.updateDetailData : this.updateMasterData;
 
-    onDetailAmountChange(amount: number): void {
-        this.detailData.amount = amount;
-        this.updateMasterData();
+        dataProp.amount = amount;
+        updateDataMethod.call(this);
     }
 
     private setInitialData(): CurrencyModel {
@@ -64,6 +58,7 @@ export class CurrencyConvertatorComponent implements OnInit{
     private shouldConvert(currencyTo: Currency, data: CurrencyModel): boolean {
         const { currency, amount } = data ?? {};
         const hasAmount = amount != undefined;
+
         return currencyTo && currency && hasAmount;
     }
 }

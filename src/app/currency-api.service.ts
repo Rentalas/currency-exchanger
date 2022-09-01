@@ -11,7 +11,7 @@ export class CurrencyApiService {
 
   constructor(private http: HttpClient) { }
 
-    getRates$(): Observable<CurrencyResponse[]> {
-        return this.http.get(CURRENCY_URL) as Observable<CurrencyResponse[]>;
-    }
+  getRates$(): Observable<CurrencyResponse[]> {
+    return this.http.get(CURRENCY_URL) as Observable<CurrencyResponse[]>;
+  }
 }
