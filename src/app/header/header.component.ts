@@ -19,7 +19,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.currencies = [Currency.Eur, Currency.Usd];
-    this.currencyRates = this.currencyRates;
     this.dateSubscription = this.courseService.exchangeDate$.subscribe(date => this.exchangeDate = date);
     this.currencySubscription = this.courseService.currencyRates$.subscribe(rates => this.currencyRates = rates);
   }
